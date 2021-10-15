@@ -1,11 +1,9 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 public class Product implements Comparable<Product> {
-    private String uniqueID;
+    private final String uniqueID;
     private String name;
     private String supplier;
     private float price;

@@ -1,9 +1,10 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OnlineShop {
-    private final ArrayList<Product> onlineShop = new ArrayList<Product>();
+    private final ArrayList<Product> onlineShop = new ArrayList<>();
 
     public void addProductToShop(Product a){
         onlineShop.add(a);
@@ -12,13 +13,36 @@ public class OnlineShop {
     public void increaseQuantityOfProduct(String id, int quantity){
 
 
-            for (int i = 0; i < onlineShop.size(); i++){
-                if (onlineShop.get(i).getId() == id){
-                    int oldQuantity = onlineShop.get(i).getQuantity();
-                    onlineShop.get(i).setQuantity(oldQuantity + quantity);
-                }
+        for (Product product : onlineShop) {
+            if (Objects.equals(product.getId(), id)) {
+                int oldQuantity = product.getQuantity();
+                product.setQuantity(oldQuantity + quantity);
             }
+        }
 
+    }
+
+    public void decreaseQuantityOfProduct(String id, int quantity){
+
+
+        for (Product product : onlineShop) {
+            if (Objects.equals(product.getId(), id)) {
+                int oldQuantity = product.getQuantity();
+                product.setQuantity(oldQuantity - quantity);
+            }
+        }
+
+    }
+
+    public ArrayList<Product> getQuantityOfProducts(){
+        ArrayList<Product> productsLowInQuantity = new ArrayList<>();
+
+        for (Product product : onlineShop) {
+            if (product.getQuantity() < 10) {
+                productsLowInQuantity.add(product);
+            }
+        }
+        return productsLowInQuantity;
     }
 
     public int getSize(){

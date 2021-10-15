@@ -30,5 +30,22 @@ public class Main {
             System.out.println(onlineShop.getOnlineShop().get(i).toString());
         }
 
+        System.out.println();
+        System.out.println("Updated");
+        System.out.println();
+
+        onlineShop.decreaseQuantityOfProduct(b.getId(), 9);
+
+        for (int i = 0; i < onlineShop.getSize(); i++){
+            System.out.println(onlineShop.getOnlineShop().get(i).toString());
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Products low in quantity");
+        for (int i = 0; i < onlineShop.getQuantityOfProducts().size(); i++){
+            System.out.println(onlineShop.getQuantityOfProducts().get(i));
+        }
+
     }
 }
