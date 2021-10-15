@@ -10,28 +10,30 @@ public class OnlineShop {
         onlineShop.add(a);
     }
 
-    public void increaseQuantityOfProduct(String id, int quantity){
+    public boolean increaseQuantityOfProduct(String id, int quantity){
 
 
         for (Product product : onlineShop) {
             if (Objects.equals(product.getId(), id)) {
                 int oldQuantity = product.getQuantity();
                 product.setQuantity(oldQuantity + quantity);
+                return true;
             }
         }
-
+        return false;
     }
 
-    public void decreaseQuantityOfProduct(String id, int quantity){
+    public boolean decreaseQuantityOfProduct(String id, int quantity){
 
 
         for (Product product : onlineShop) {
             if (Objects.equals(product.getId(), id)) {
                 int oldQuantity = product.getQuantity();
                 product.setQuantity(oldQuantity - quantity);
+                return true;
             }
         }
-
+        return false;
     }
 
     public ArrayList<Product> getQuantityOfProducts(){
