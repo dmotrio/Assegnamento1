@@ -58,7 +58,7 @@ public class Product implements Comparable<Product> {
 
     /**
      * setter function of the name parameter
-     * @param name
+     * @param name string that contain the name of product
      */
     public void setName(String name) {
         this.name = name;
@@ -74,7 +74,7 @@ public class Product implements Comparable<Product> {
 
     /**
      * setter function of the supplier parameter
-     * @param supplier
+     * @param supplier string that contain the supplier of the product
      */
     public void setSupplier(String supplier) {
         this.supplier = supplier;
@@ -90,7 +90,7 @@ public class Product implements Comparable<Product> {
 
     /**
      * setter function of the price parameter
-     * @param price
+     * @param price float that contain the price of the product
      */
     public void setPrice(float price) {
         this.price = price;
@@ -106,7 +106,7 @@ public class Product implements Comparable<Product> {
 
     /**
      * setter function of the quantity parameter
-     * @param quantity
+     * @param quantity int that contain the quantity of the product
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -130,7 +130,7 @@ public class Product implements Comparable<Product> {
     /**
      * Method used to compare two objects using the price
      * needed to perform sorting function.
-     * @param o
+     * @param o new object created by the class Product used for confronting the prices.
      * @return 1 if the first object is greater,
      *         0 if the two objects are the same
      *         -1 if the second object is grater than the first.
