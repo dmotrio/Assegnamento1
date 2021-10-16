@@ -16,14 +16,17 @@ public class ShoppingCart {
         else
         {
             for (Product productAlreadyInCart : shoppingCart) {
-                if (Objects.equals(productToAddInCart.getId(), productToAddInCart.getId())) {
+                String idAlreadyInCart = productAlreadyInCart.getId();
+                String idNewProduct = productToAddInCart.getId();
+                if (idAlreadyInCart == idNewProduct) {
                     int oldQuantity = productAlreadyInCart.getQuantity();
                     productAlreadyInCart.setQuantity(oldQuantity + quantity);
-                }//TODO: fixare il fatto che il confornto fra le due stringhe faccia sempre entrare dentro all'if anche se nnon dovrebbe :(
+                }
                 else
                 {
                     productToAddInCart.setQuantity(quantity);
                     shoppingCart.add(productToAddInCart);
+                    break;
                 }
             }
         }
@@ -56,7 +59,9 @@ public class ShoppingCart {
 
 
         for (Product product : shoppingCart) {
-            if (Objects.equals(product.getId(), id)) {
+            String idAlreadyInCart = product.getId();
+
+            if (idAlreadyInCart == id) {
                 int oldQuantity = product.getQuantity();
                 product.setQuantity(oldQuantity + quantity);
                 return true;
@@ -75,7 +80,8 @@ public class ShoppingCart {
      */
     public boolean decreaseQuantityOfProduct(String id, int quantity){
         for (Product product : shoppingCart) {
-            if (Objects.equals(product.getId(), id)) {
+            String alreadyInCart = product.getId();
+            if (alreadyInCart == id) {
                 int oldQuantity = product.getQuantity();
                 if (oldQuantity < quantity){
                     return false;
@@ -94,11 +100,5 @@ public class ShoppingCart {
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
     }
-
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "shoppingCart=" + shoppingCart +
-                '}';
-    }
+    //TODO: add function to send the shoppingCart to the orders class
 }
