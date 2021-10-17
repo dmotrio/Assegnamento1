@@ -1,5 +1,7 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -100,5 +102,13 @@ public class ShoppingCart {
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
     }
-    //TODO: add function to send the shoppingCart to the orders class
+
+
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "shoppingCart=" + shoppingCart +
+                '}';
+    }
 }

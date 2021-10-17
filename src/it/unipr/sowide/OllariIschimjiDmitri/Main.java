@@ -90,5 +90,21 @@ public class Main {
             System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
         }
 
+        System.out.println();
+        System.out.println();
+        System.out.println("ShoppingCart");
+        user1.purchase(onlineShop, orders);
+
+        for (int i = 0; i < orders.getOrderList().size(); i++){
+            System.out.println(orders.getOrderList().get(i).getUserName());
+            System.out.println(orders.getOrderList().get(i).getProductId());
+            System.out.println(orders.getOrderList().get(i).getProductQuantity());
+        }
+
+        System.out.println("carrello post purchase");
+        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
+            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
+        }
+
     }
 }
