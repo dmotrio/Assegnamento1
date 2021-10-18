@@ -1,6 +1,5 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -11,9 +10,16 @@ public class ShoppingCart {
     public ShoppingCart(){}
 
     public void addProductToShoppingCart(Product productToAddInCart, int quantity){
+        Product addPrToCart = new Product();
+        addPrToCart.setId(productToAddInCart.getId());
+        addPrToCart.setName(productToAddInCart.getName());
+        addPrToCart.setPrice(productToAddInCart.getPrice());
+        addPrToCart.setSupplier(productToAddInCart.getSupplier());
+
+
         if (shoppingCart.isEmpty()){
-            productToAddInCart.setQuantity(quantity);
-            shoppingCart.add(productToAddInCart);
+            addPrToCart.setQuantity(quantity);
+            shoppingCart.add(addPrToCart);
         }
         else
         {
@@ -26,8 +32,8 @@ public class ShoppingCart {
                 }
                 else
                 {
-                    productToAddInCart.setQuantity(quantity);
-                    shoppingCart.add(productToAddInCart);
+                    addPrToCart.setQuantity(quantity);
+                    shoppingCart.add(addPrToCart);
                     break;
                 }
             }

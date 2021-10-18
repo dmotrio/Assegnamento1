@@ -8,7 +8,7 @@ import java.util.UUID;
  * the store itself.
  */
 public class Product implements Comparable<Product> {
-    private final String uniqueID;
+    private String uniqueID;
     private String name;
     private String supplier;
     private float price;
@@ -46,6 +46,10 @@ public class Product implements Comparable<Product> {
      */
     public String getId() {
         return uniqueID;
+    }
+
+    public void setId(String id){
+        this.uniqueID = id;
     }
 
     /**

@@ -1,9 +1,6 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Users;
 
-import it.unipr.sowide.OllariIschimjiDmitri.Store.OnlineShop;
-import it.unipr.sowide.OllariIschimjiDmitri.Store.OrderToShip;
-import it.unipr.sowide.OllariIschimjiDmitri.Store.Orders;
-import it.unipr.sowide.OllariIschimjiDmitri.Store.ShoppingCart;
+import it.unipr.sowide.OllariIschimjiDmitri.Store.*;
 
 public class NormalUser {
     private String name;
@@ -39,40 +36,30 @@ public class NormalUser {
         this.password = password;
     }
 
-    public boolean purchase(OnlineShop onlineShop, Orders orders){
-        if (this.shoppingCart.getShoppingCart().isEmpty()){
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < this.shoppingCart.getShoppingCart().size(); i++){
-                for (int j = 0; j < onlineShop.getOnlineShop().size(); j++){
-                    String idInCart = this.shoppingCart.getShoppingCart().get(i).getId();
-                    String idInStore = onlineShop.getOnlineShop().get(j).getId();
+    public void purchase(OnlineShop onlineShop, Orders orders) throws Exception {
+        int shoppingListSize = this.shoppingCart.getShoppingCart().size();
 
-                    if (idInCart == idInStore){
-                        int quantityInCart = this.shoppingCart.getShoppingCart().get(i).getQuantity();
-                        int quantityInShop = onlineShop.getOnlineShop().get(j).getQuantity();
-
-                        if (quantityInShop < quantityInCart){
-                            return false;
-                        }
-                        else
-                        {
-                            OrderToShip orderToShip = new OrderToShip();
-                            orderToShip.setUserName(getName());
-                            orderToShip.setProductId(this.shoppingCart.getShoppingCart().get(i).getId());
-                            orderToShip.setProductQuantity(this.shoppingCart.getShoppingCart().get(i).getQuantity());
-                            orders.addToOrders(orderToShip);
-                            shoppingCart.getShoppingCart().clear();
-                            break;
-                        }
-                    }
+            for(Product prInShop: onlineShop.getOnlineShop()){
+                for (Product prInCart: this.shoppingCart.getShoppingCart()){
+                    if (prInCart.getId().equals(prInShop.getId()))
+                        if (prInCart.getQuantity() > prInShop.getQuantity())
+                            throw new Exception("Not enough products in the store.");
                 }
             }
 
-            return true;
-        }
+            for(Product prInShop: onlineShop.getOnlineShop()){
+                for (Product prInCart: this.shoppingCart.getShoppingCart()){
+                    if (prInCart.getId().equals(prInShop.getId())){
+                        OrderToShip demo = new OrderToShip();
+                        demo.setUserName(this.getName());
+                        demo.setProductId(prInCart.getId());
+                        demo.setProductQuantity(prInCart.getQuantity());
+                        orders.addToOrders(demo);
+                        int i = onlineShop.getOnlineShop().indexOf(prInShop);
+                        onlineShop.getOnlineShop().get(i).setQuantity(prInShop.getQuantity() - prInCart.getQuantity());
+                    }
+                }
+            }
+            this.getShoppingCart().getShoppingCart().clear();
     }
-
 }
