@@ -12,6 +12,11 @@ public class NormalUser {
         this.password = "passwordTest";
         
     }
+    public NormalUser(String name, String password){
+        this.name = name;
+        this.password = password;
+
+    }
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }

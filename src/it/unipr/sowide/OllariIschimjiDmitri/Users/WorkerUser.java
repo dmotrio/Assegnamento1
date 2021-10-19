@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class WorkerUser {
     private String name;
     private String password;
-    private Orders orders = new Orders();
-
 
     public String getName() {
         return name;
@@ -27,14 +25,6 @@ public class WorkerUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Orders getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Orders orders) {
-        this.orders = orders;
     }
 
     public ArrayList<Product> checkLowQuantity(OnlineShop onlineShop){

@@ -3,10 +3,11 @@ package it.unipr.sowide.OllariIschimjiDmitri.Users;
 import it.unipr.sowide.OllariIschimjiDmitri.Store.OnlineShop;
 import it.unipr.sowide.OllariIschimjiDmitri.Store.Product;
 
+import java.util.ArrayList;
+
 public class Admin {
     private String name;
     private String password;
-    private AllUsers allUsers = new AllUsers();
 
     public String getName() {
         return name;
@@ -16,16 +17,16 @@ public class Admin {
         return password;
     }
 
-    public void createNewWorker(String name, String password){
+    public void createNewWorker(String name, String password, ArrayList<WorkerUser> workers){
         WorkerUser work = new WorkerUser();
         work.setName(name);
         work.setPassword(password);
-        allUsers.addToWorker(work);
+        workers.add(work);
     }
 
-    public void removeWorker(WorkerUser work) throws Exception {
-        if (allUsers.getWorkerUsers().contains(work)){
-            allUsers.getWorkerUsers().remove(work);
+    public void removeWorker(WorkerUser work, ArrayList<WorkerUser> workers) throws Exception {
+        if (workers.contains(work)){
+            workers.remove(work);
         }
         else
         {

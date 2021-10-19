@@ -6,6 +6,7 @@ import it.unipr.sowide.OllariIschimjiDmitri.Users.NormalUser;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.WorkerUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -18,6 +19,8 @@ public class Main {
 	*/
         OnlineShop onlineShop = new OnlineShop();
         Orders orders = new Orders();
+        ArrayList<NormalUser> users = new ArrayList<>();
+        ArrayList<WorkerUser> workers = new ArrayList<>();
 
         Admin admin = new Admin(onlineShop);
         Scanner scanner = new Scanner(System.in);
@@ -30,8 +33,89 @@ public class Main {
 
             switch (choice){
                 case 1: System.out.println("login");
+                System.out.println("Select one option for login:\n1 - admin\n2 - worker\n3 - normal user\n0 - previous menu");
+                int loginChoice = scanner.nextInt();
+                switch (loginChoice){
+                    case 1://ADMIN LOGIN
+                        break;
+                    case 2://WORKER LOGIN
+                        break;
+                    case 3://NORMAL USER LOGIN
+                        System.out.println("insert name:");
+                        String name = scanner.next();
+                        System.out.println("insert password:");
+                        String password = scanner.next();
+                        if (users.isEmpty())
+                        {
+                            System.out.println("Users list is empty, first register some users");
+                            break;
+                        }
+                        for (NormalUser normalUser:users){
+                            if (normalUser.getName().equals(name) && normalUser.getPassword().equals(password)){
+                                System.out.println("LoggedIn as: " + normalUser.getName());
+                                //TODO: loop and switch statement per far le azioni che luser normale deve fare
+                                boolean loopNormalUser = true;
+
+                                while(loopNormalUser){
+                                    System.out.println("Actions Menu:\n1 - Show all product\n2 - Search\n3 - add to cart\n4 - purchase all products in cart\n0 - logout");
+                                    int choiseNormalUser = scanner.nextInt();
+                                    switch (choiseNormalUser){
+                                        case 1:
+                                            //SAMPO IL CONTENUTO DELLO SHOP
+                                            for (int i = 0; i < onlineShop.getSize(); i++){
+                                                System.out.println(onlineShop.getOnlineShop().get(i).toString());
+                                            }
+                                            break;
+                                        case 2:
+                                            break;
+                                        case 3:
+                                            break;
+                                        case 4:
+                                            break;
+                                        case 0:
+                                            loopNormalUser = false;
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Name or password wrong");
+                            }
+                        }
+                        break;
+
+                    case 0:
+                        break;
+
+                    default:
+                        break;
+                }
                         break;
                 case 2: System.out.println("register");
+                System.out.println("Insert name:");
+                String name = scanner.next();
+                System.out.println("Insert password:");
+                String password = scanner.next();
+
+                NormalUser user = new NormalUser(name, password);
+                if (users.isEmpty())
+                {
+                    users.add(user);
+                }
+                else
+                {
+                    for (NormalUser normalUser:users){
+                        if (normalUser.getName().equals(user.getName())){
+                            System.out.println("user already registered.");
+                            break;
+                        }
+                    }
+                    users.add(user);
+                }
                     break;
                 case 0: System.out.println("QUIT");
                     loop = false;
