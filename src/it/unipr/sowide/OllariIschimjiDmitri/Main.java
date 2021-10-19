@@ -67,6 +67,51 @@ public class Main {
                                             }
                                             break;
                                         case 2:
+                                            System.out.println("If you want search by name(leave blanc if you want use this features), insert here the name of the product:");
+                                            String searchByName = scanner.next();
+                                            System.out.println("if you want search by product supplier name(leave blanc if wont use this features), insert here the supplier name of the product:");
+                                            String searchBySupplier = scanner.next();
+                                            System.out.println("decrescent order or crescent order for prodct price(leave blanc if wont use), 1 for decrescent or 0 for crescent");
+                                            int crescDecres = scanner.nextInt();
+
+                                            ArrayList<Product> search = new ArrayList<>();
+
+                                            if (!searchByName.isEmpty()){
+                                                for (Product product:onlineShop.getOnlineShop()){
+                                                    if (product.getName().equals(searchByName)){
+                                                        search.add(product);
+                                                    }
+                                                }
+                                            }
+
+                                            if (!searchBySupplier.isEmpty()){
+                                                if (search.isEmpty()){
+                                                    for (Product product:onlineShop.getOnlineShop()){
+                                                        if (product.getSupplier().equals(searchBySupplier)){
+                                                            search.add(product);
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    search.clear();
+                                                    for (Product product:onlineShop.getOnlineShop()){
+                                                        if (product.getName().equals(searchByName) && product.getSupplier().equals(searchBySupplier)){
+                                                            search.add(product);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            if (crescDecres == 1)
+                                            {
+                                                search.sort((o1, o2) -> {return (int) (o1.getPrice() - o2.getPrice());});
+                                            }
+
+                                            if (crescDecres == 0){
+
+                                            }
+
                                             break;
                                         case 3:
                                             break;
