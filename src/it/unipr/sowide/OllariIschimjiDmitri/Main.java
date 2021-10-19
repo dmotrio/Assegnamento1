@@ -1,8 +1,12 @@
 package it.unipr.sowide.OllariIschimjiDmitri;
 
 import it.unipr.sowide.OllariIschimjiDmitri.Store.*;
+import it.unipr.sowide.OllariIschimjiDmitri.Users.Admin;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.NormalUser;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.WorkerUser;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -14,41 +18,46 @@ public class Main {
 	*/
         OnlineShop onlineShop = new OnlineShop();
         Orders orders = new Orders();
-        NormalUser user1 = new NormalUser();
-        WorkerUser work1 = new WorkerUser();
 
-        //CREO DIECI PRODOTTI
-        Product a = new Product("LavatriceX", "Brandfamoso", 999.99f, 1000);
-        Product b = new Product("Iphone9", "apple", 999.99f, 10000);
-        Product c = new Product("PC", "lenovo", 1234.56f, 5000);
-        Product d = new Product("LavatriceY", "arcTAN", 999.99f, 99);
-        Product e = new Product("OnePlus9", "OnePlus", 999.99f, 250);
-        Product f = new Product("PC-gaming", "lenovo", 1234.56f, 5000);
-        Product g = new Product("LavatriceKSG", "KSG", 345.99f, 100000);
-        Product h = new Product("Iphone99", "apple", 999.99f, 10000);
-        Product k = new Product("Laptop", "MSI", 900.56f, 199);
-        Product l = new Product("LavatriceQWERTY", "BrandMenoFamoso", 100.99f, 100);
+        Admin admin = new Admin(onlineShop);
+        Scanner scanner = new Scanner(System.in);
 
-        //INSERISCO I DIECI PRODOTTI NELLO SHOP
-        onlineShop.addProductToShop(a);
-        onlineShop.addProductToShop(b);
-        onlineShop.addProductToShop(c);
-        onlineShop.addProductToShop(d);
-        onlineShop.addProductToShop(e);
-        onlineShop.addProductToShop(f);
-        onlineShop.addProductToShop(g);
-        onlineShop.addProductToShop(h);
-        onlineShop.addProductToShop(k);
-        onlineShop.addProductToShop(l);
+        boolean loop = true;
+
+        while (loop){
+            System.out.println("Select one option: \n1 - login\n2 - register\n0 - Quit program");
+            int choice = scanner.nextInt();
+
+            switch (choice){
+                case 1: System.out.println("login");
+                        break;
+                case 2: System.out.println("register");
+                    break;
+                case 0: System.out.println("QUIT");
+                    loop = false;
+                    break;
+                default: System.out.println("Use a correct choise");
+            }
+        }
+
+
+
+
+
+
+
+
+
 
 
 
         /*
+
         //SAMPO IL CONTENUTO DELLO SHOP
         for (int i = 0; i < onlineShop.getSize(); i++){
             System.out.println(onlineShop.getOnlineShop().get(i).toString());
         }
-         */
+
 
         //AUMENTO LA QUANTITÀ DI UN PRODOTTO(AZIONE ADIBITA A UTENTI WORKER)
         //onlineShop.increaseQuantityOfProduct(a.getId(), 1000);
@@ -61,19 +70,19 @@ public class Main {
             System.out.println(onlineShop.getOnlineShop().get(i).toString());
         }
 
-        /*
+
         System.out.println();
         System.out.println();
         System.out.println("Products low in quantity:");
         for (int i = 0; i < onlineShop.getQuantityOfProducts().size(); i++){
             System.out.println(onlineShop.getQuantityOfProducts().get(i));
         }
-         */
 
-        user1.getShoppingCart().addProductToShoppingCart(a , 2);
 
-        user1.getShoppingCart().addProductToShoppingCart(c, 10);
-        user1.getShoppingCart().addProductToShoppingCart(k, 20);
+        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(0) , 2);
+
+        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(2), 10);
+        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(5), 20);
 
 
         System.out.println();
@@ -82,7 +91,7 @@ public class Main {
         for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
             System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
         }
-        /*
+
         System.out.println();
         System.out.println();
         System.out.println("Remove one product from shoppinglist");
@@ -109,7 +118,7 @@ public class Main {
         for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
             System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
         }
-         */
+
 
         System.out.println();
         System.out.println();
@@ -132,27 +141,36 @@ public class Main {
             System.out.println();
         }
 
-        /*
+
         System.out.println("cart post purchase");
         for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
             System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
         }
-         */
 
-        /*
+
+
+
+
         System.out.println("LOW QUANTITY");
         if (!work1.checkLowQuantity(onlineShop).isEmpty()){
+            int i = 0;
             for (Product product: work1.checkLowQuantity(onlineShop)){
-                System.out.println(product.getId());
-                System.out.println(product.getName());
-                System.out.println(product.getSupplier());
-                System.out.println(product.getPrice());
+                System.out.println("Product number: " +  (i));
+                System.out.print("Id: " + product.getId() + " - name: ");
+                System.out.print(product.getName() + " - supplier: ");
+                System.out.print(product.getSupplier() + " - price: ");
+                System.out.print(product.getPrice() + " - quantity: ");
                 System.out.println(product.getQuantity());
+                i++;
             }
         }
-         */
+        //ASK THE WORKER A INDEX TO MODIFY
+        work1.restockLowProducts(onlineShop, 1, 2000);
 
-        /*
+
+
+
+
         System.out.println("Quantitativo di ordini da spedire: " + orders.getOrderList().stream().count());
 
         OrderToShip app = work1.nextOrder(orders);
@@ -169,6 +187,7 @@ public class Main {
         System.out.println(app2.getUserName());
         System.out.println(app2.getProductId());
         System.out.println(app2.getProductQuantity());
+
          */
     }
 }
