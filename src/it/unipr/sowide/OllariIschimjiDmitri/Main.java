@@ -164,13 +164,11 @@ public class Main {
                         }
                         for (WorkerUser workerUser:workers){
                             if (workerUser.getName().equals(nameWorker) && workerUser.getPassword().equals(passwordWorker)){
-                                //TODO: SHIP ORDER
-                                //TODO: RESTOCK PRODUCTS LOW IN QUANTITY
                                 System.out.println("LoggedIn as: " + workerUser.getName());
 
                                 boolean loopWorkerUser = true;
                                 while(loopWorkerUser){
-                                    System.out.println("Actions menu:\n1 - Show orders\n2 - ship order\n3 - check low quantity\n4 - restock product\n0 - logout");
+                                    System.out.println("Actions menu:\n1 - Show orders\n2 - ship order\n3 - restock product\n0 - logout");
                                     int workerChoise = scanner.nextInt();
 
                                     switch (workerChoise){
@@ -188,7 +186,7 @@ public class Main {
                                             }
                                             break;
                                         case 2:
-                                            //SHIP ORDER BY ID
+                                            //SHIP ORDER
                                             if (orders.getOrderList().isEmpty())
                                             {
                                                 System.out.println("order list empty, nothing to do.");
@@ -198,12 +196,34 @@ public class Main {
                                                 workerUser.nextOrder(orders);
                                             }
                                             break;
-                                        case 3:
-                                            //TODO: CHECK LOW QUANTITY
 
-                                            break;
-                                        case 4:
+                                        case 3:
                                             //TODO: RESTOCK PRODUCT BY ID
+                                            ArrayList<Product> lowProduct =  workerUser.checkLowQuantity(onlineShop);
+                                            if (lowProduct.isEmpty()){
+                                                System.out.println("No low qualtity product");
+                                            }
+                                            else
+                                            {
+                                                System.out.println("list of low product:");
+                                                int index = 0;
+                                                for (Product low:lowProduct){
+                                                    System.out.println("index = " + index + "\n" + low.toString());
+                                                }
+                                                System.out.println("select the index of the product to restock");
+                                                int selectedIndex = scanner.nextInt();
+                                                if (lowProduct.size() > selectedIndex){
+                                                    System.out.println("select quantity to add in the store:");
+                                                    int selectedQuantityToRestock = scanner.nextInt();
+                                                    if (selectedQuantityToRestock > 0){
+                                                        for (int i = 0; i < onlineShop.getSize(); i++){
+
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+
                                             break;
                                         case 0:
                                             loopWorkerUser = false;

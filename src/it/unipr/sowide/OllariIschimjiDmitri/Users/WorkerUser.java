@@ -48,20 +48,14 @@ public class WorkerUser {
         return null;
     }
 
-public void restockLowProducts(OnlineShop onlineShop, int index, int quantity){
-        if (!checkLowQuantity(onlineShop).isEmpty() && checkLowQuantity(onlineShop).size() > index){
-            Product product = checkLowQuantity(onlineShop).get(index);
+    public void restockLowProducts(OnlineShop onlineShop, int index, int quantity){
+            if (!checkLowQuantity(onlineShop).isEmpty() && checkLowQuantity(onlineShop).size() > index){
+                Product product = checkLowQuantity(onlineShop).get(index);
 
-            onlineShop.increaseQuantityOfProduct(product.getId(), quantity);
+                onlineShop.increaseQuantityOfProduct(product.getId(), quantity);
 
 
-        }
+            }
 
-}
-
-    /*
-
-    TODO: ARRAYLIST DI TUTTI GLI UTENTI PER EVITARE USERNAME UGUALI
-    TODO: FARE IL PARSING DI TUTTI GLI OGGETTI E UTENTI DI  ESEMPIO GEMERANDOLI DA UN FILE CSV.
-     */
+    }
 }
