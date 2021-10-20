@@ -37,21 +37,197 @@ public class Main {
                 int loginChoice = scanner.nextInt();
                 switch (loginChoice){
                     case 1://ADMIN LOGIN
+                        System.out.println("Insert the password for the admin account:");//password = "admin"
+                        String passwordAdmin = scanner.next();
+                        if (passwordAdmin.isEmpty())
+                        {
+                            System.out.println("Empty password");
+                        }
+                        else if (passwordAdmin.equals(admin.getPassword()))
+                        {
+                            //LOGGED IN AS ADMIN
+
+
+
+                            boolean adminloop = true;
+                            while (adminloop){
+                                System.out.println("Select option:\n1 - add new product to shop\n2 - remove product from shop\n3- new credential for workers\n0 - logout");
+                                int adminchoise = scanner.nextInt();
+                                switch (adminchoise){
+                                    case 1:
+                                        //ADD NEW PRODUCT TO SHOP
+                                        Product newProduct = new Product();
+                                        System.out.println("Insert the name of the new prduct");
+                                        String newName = scanner.next();
+                                        if (newName.isEmpty())
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            newProduct.setName(newName);
+                                            System.out.println("Insert the supplier of the new product:");
+                                            String newSupplier = scanner.next();
+                                            if (newSupplier.isEmpty()){
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                System.out.println("Insert the product price");
+                                                float newPrice = scanner.nextFloat();
+                                                if (newPrice > 0){
+                                                    System.out.println("Insert the product quantity to ad in the store:");
+                                                    int newQuantity = scanner.nextInt();
+                                                    if (newQuantity > 0){
+                                                        newProduct.setName(newName);
+                                                        newProduct.setSupplier(newSupplier);
+                                                        newProduct.setPrice(newPrice);
+                                                        newProduct.setQuantity(newQuantity);
+
+                                                        onlineShop.addProductToShop(newProduct);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+
+                                        break;
+                                    case 2:
+                                        //REMOVE PRODUCT FROM SHOP
+                                        //SAMPO IL CONTENUTO DELLO SHOP
+                                        for (int i = 0; i < onlineShop.getSize(); i++){
+                                            System.out.println("Index = " + i + " " + onlineShop.getOnlineShop().get(i).toString());
+                                        }
+                                        System.out.println("Select the id of the product to remove from the shop:");
+                                        int idToRemove = scanner.nextInt();
+                                        if (idToRemove >= 0)
+                                        {
+                                            if (onlineShop.getOnlineShop().size() >= idToRemove){
+                                                onlineShop.removeProduct(idToRemove, onlineShop);
+                                                System.out.println("Udated catolog");
+                                                for (int i = 0; i < onlineShop.getSize(); i++){
+                                                    System.out.println("Index = " + i + " " + onlineShop.getOnlineShop().get(i).toString());
+                                                }
+                                            }
+                                        }
+
+
+                                        break;
+                                    case 3:
+                                        //NEW CREDENTIAL FOR WORKERS
+                                        System.out.println("Insert new username for worker");
+                                        String newWorkerUsername = scanner.next();
+                                        if (newWorkerUsername.isEmpty())
+                                        {
+                                            System.out.println("username can't be empty");
+                                        }
+                                        else
+                                        {
+                                            System.out.println("Insert password for the new worker");
+                                            String newWorkerPassword = scanner.next();
+                                            if (newWorkerPassword.isEmpty())
+                                            {
+                                                System.out.println("password can't be empty");
+                                            }
+                                            else
+                                            {
+                                                WorkerUser work = new WorkerUser();
+                                                work.setName(newWorkerUsername);
+                                                work.setPassword(newWorkerPassword);
+
+                                                workers.add(work);
+                                            }
+                                        }
+                                        break;
+                                    case 0:
+                                        adminloop = false;
+                                        break;
+                                    default:
+                                        System.out.println("Wrong choise");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("wrong password");
+                        }
                         break;
                     case 2://WORKER LOGIN
+                        System.out.println("insert name:");
+                        String nameWorker = scanner.next();
+                        System.out.println("insert password:");
+                        String passwordWorker = scanner.next();
+                        if (workers.isEmpty())
+                        {
+                            System.out.println("Worker list is empty, first register some workers");
+                            break;
+                        }
+                        for (WorkerUser workerUser:workers){
+                            if (workerUser.getName().equals(nameWorker) && workerUser.getPassword().equals(passwordWorker)){
+                                //TODO: SHIP ORDER
+                                //TODO: RESTOCK PRODUCTS LOW IN QUANTITY
+                                System.out.println("LoggedIn as: " + workerUser.getName());
+
+                                boolean loopWorkerUser = true;
+                                while(loopWorkerUser){
+                                    System.out.println("Actions menu:\n1 - Show orders\n2 - ship order\n3 - check low quantity\n4 - restock product\n0 - logout");
+                                    int workerChoise = scanner.nextInt();
+
+                                    switch (workerChoise){
+                                        case 1:
+                                            //SHOW ORDERS
+                                            if (orders.getOrderList().isEmpty())
+                                            {
+                                                System.out.println("order list empty, nothing to do.");
+                                            }
+                                            else
+                                            {
+                                                for (int i = 0; i < orders.getOrderList().size(); i++){
+                                                    System.out.println(orders.getOrderList().get(i).getProductId() + "\n" + orders.getOrderList().get(i).getUserName() + "\n" + orders.getOrderList().get(i).getProductQuantity());
+                                                }
+                                            }
+                                            break;
+                                        case 2:
+                                            //SHIP ORDER BY ID
+                                            if (orders.getOrderList().isEmpty())
+                                            {
+                                                System.out.println("order list empty, nothing to do.");
+                                            }
+                                            else
+                                            {
+                                                workerUser.nextOrder(orders);
+                                            }
+                                            break;
+                                        case 3:
+                                            //TODO: CHECK LOW QUANTITY
+
+                                            break;
+                                        case 4:
+                                            //TODO: RESTOCK PRODUCT BY ID
+                                            break;
+                                        case 0:
+                                            loopWorkerUser = false;
+                                            break;
+                                        default:
+                                            System.out.println("select a valid option:");
+                                            break;
+                                    }
+                                }
+                            }
+                        }
                         break;
                     case 3://NORMAL USER LOGIN
                         System.out.println("insert name:");
                         String name = scanner.next();
                         System.out.println("insert password:");
-                        String password = scanner.next();
+                        String passwordUser = scanner.next();
                         if (users.isEmpty())
                         {
                             System.out.println("Users list is empty, first register some users");
                             break;
                         }
                         for (NormalUser normalUser:users){
-                            if (normalUser.getName().equals(name) && normalUser.getPassword().equals(password)){
+                            if (normalUser.getName().equals(name) && normalUser.getPassword().equals(passwordUser)){
                                 System.out.println("LoggedIn as: " + normalUser.getName());
                                 //TODO: loop and switch statement per far le azioni che luser normale deve fare
                                 boolean loopNormalUser = true;
@@ -110,12 +286,50 @@ public class Main {
 
                                             if (crescDecres == 0){
 
+
                                             }
 
                                             break;
                                         case 3:
+                                            //add product to cart
+                                            //SAMPO IL CONTENUTO DELLO SHOP
+                                            for (int i = 0; i < onlineShop.getSize(); i++){
+                                                System.out.println("Index = " + i + " " + onlineShop.getOnlineShop().get(i).toString());
+                                            }
+                                            System.out.println("\n\nSelect the index of the product to add in cart:");
+                                            int chosenProductToAdd = scanner.nextInt();
+                                            if (chosenProductToAdd + 1 > onlineShop.getOnlineShop().size())
+                                            {
+                                                System.out.println("Chosen index is out of range");
+                                            }
+                                            else
+                                            {
+                                                System.out.println("Select the quantity of the product to add in cart:");
+                                                int chosenProductQuantity = scanner.nextInt();
+                                                if (chosenProductQuantity > onlineShop.getOnlineShop().get(chosenProductToAdd).getQuantity()){
+                                                    System.out.println("Product quantity chosen is grated than the product quantity in the store.");
+                                                }
+                                                else
+                                                {
+                                                    normalUser.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(chosenProductToAdd), chosenProductQuantity);
+                                                    System.out.println("Product added to cart.");
+                                                }
+                                            }
+
                                             break;
-                                        case 4:
+                                        case 4://purchase all product in cart
+                                            if (normalUser.getShoppingCart().getShoppingCart().isEmpty())
+                                            {
+                                                System.out.println("Product cart is empty");
+                                            }
+                                            else
+                                            {
+                                                try {
+                                                    normalUser.purchase(onlineShop, orders);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
                                             break;
                                         case 0:
                                             loopNormalUser = false;
@@ -137,14 +351,16 @@ public class Main {
                         break;
 
                     default:
+                        System.out.println("Wrong selection");
                         break;
                 }
                         break;
-                case 2: System.out.println("register");
-                System.out.println("Insert name:");
-                String name = scanner.next();
-                System.out.println("Insert password:");
-                String password = scanner.next();
+                case 2:
+                    System.out.println("register");
+                    System.out.println("Insert name:");
+                    String name = scanner.next();
+                    System.out.println("Insert password:");
+                    String password = scanner.next();
 
                 NormalUser user = new NormalUser(name, password);
                 if (users.isEmpty())

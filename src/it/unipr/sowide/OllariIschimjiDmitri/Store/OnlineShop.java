@@ -47,6 +47,10 @@ public class OnlineShop {
         return productsLowInQuantity;
     }
 
+    public void removeProduct (int index, OnlineShop onlineShop){
+        onlineShop.getOnlineShop().remove(index);
+    }
+
     public int getSize(){
         return onlineShop.size();
     }
