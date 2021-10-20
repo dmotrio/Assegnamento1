@@ -4,11 +4,20 @@ package it.unipr.sowide.OllariIschimjiDmitri.Store;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author Ollari Ischimji Dmitri
+ * class the is used to store all the product add by the user to his shoppingcart
+ */
 public class ShoppingCart {
     private ArrayList<Product> shoppingCart = new ArrayList<>();
 
     public ShoppingCart(){}
 
+    /**
+     * Class used to add product to the cart
+     * @param productToAddInCart is the product to add
+     * @param quantity is the quantity of the product to add in the cart
+     */
     public void addProductToShoppingCart(Product productToAddInCart, int quantity){
         Product addPrToCart = new Product();
         addPrToCart.setId(productToAddInCart.getId());
@@ -16,21 +25,22 @@ public class ShoppingCart {
         addPrToCart.setPrice(productToAddInCart.getPrice());
         addPrToCart.setSupplier(productToAddInCart.getSupplier());
 
-
+        //CHECH IF EMPTY
         if (shoppingCart.isEmpty()){
             addPrToCart.setQuantity(quantity);
             shoppingCart.add(addPrToCart);
         }
-        else
+        else//IF NOT EMPTY
         {
             for (Product productAlreadyInCart : shoppingCart) {
                 String idAlreadyInCart = productAlreadyInCart.getId();
                 String idNewProduct = productToAddInCart.getId();
+                //CHECK IF THE QOBJECT IS ALREADY IN CART AND UDATE THE QUANTITY OF THE PRODUCT ALREADY IN CART
                 if (idAlreadyInCart == idNewProduct) {
                     int oldQuantity = productAlreadyInCart.getQuantity();
                     productAlreadyInCart.setQuantity(oldQuantity + quantity);
                 }
-                else
+                else//IF PRODUCT IS NOT IN THE CART ALREADY, ADD IT
                 {
                     addPrToCart.setQuantity(quantity);
                     shoppingCart.add(addPrToCart);

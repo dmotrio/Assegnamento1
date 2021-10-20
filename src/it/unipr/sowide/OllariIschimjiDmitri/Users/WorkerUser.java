@@ -49,13 +49,6 @@ public class WorkerUser {
     }
 
     public void restockLowProducts(OnlineShop onlineShop, int index, int quantity){
-            if (!checkLowQuantity(onlineShop).isEmpty() && checkLowQuantity(onlineShop).size() > index){
-                Product product = checkLowQuantity(onlineShop).get(index);
-
-                onlineShop.increaseQuantityOfProduct(product.getId(), quantity);
-
-
-            }
-
+            onlineShop.increaseQuantityOfProduct(index, quantity);
     }
 }

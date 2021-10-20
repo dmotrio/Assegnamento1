@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"it.unipr.sowide.OllariIschimjiDmitri"},{"l":"it.unipr.sowide.OllariIschimjiDmitri.Store"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"it.unipr.sowide.OllariIschimjiDmitri"},{"l":"it.unipr.sowide.OllariIschimjiDmitri.Store"},{"l":"it.unipr.sowide.OllariIschimjiDmitri.Users"}];updateSearchResults();

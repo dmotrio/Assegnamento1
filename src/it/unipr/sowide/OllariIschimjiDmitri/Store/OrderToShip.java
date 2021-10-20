@@ -1,5 +1,10 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
+/**
+ * @author Ollari Ischimji Dmitri
+ * class used to create the object that go inside the Orders arraylist
+ * this class is used only like getter and setter function of the order.
+ */
 public class OrderToShip extends Orders{
     private String userName;
     private String productId;

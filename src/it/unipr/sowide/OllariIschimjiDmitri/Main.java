@@ -22,6 +22,15 @@ public class Main {
         ArrayList<NormalUser> users = new ArrayList<>();
         ArrayList<WorkerUser> workers = new ArrayList<>();
 
+        //setup for tests
+        NormalUser dmo = new NormalUser("dmo","dmo");
+        users.add(dmo);
+
+        WorkerUser w = new WorkerUser();
+        w.setName("w");
+        w.setPassword("w");
+        workers.add(w);
+
         Admin admin = new Admin(onlineShop);
         Scanner scanner = new Scanner(System.in);
 
@@ -198,7 +207,7 @@ public class Main {
                                             break;
 
                                         case 3:
-                                            //TODO: RESTOCK PRODUCT BY ID
+                                            //RESTOCK PRODUCT BY ID
                                             ArrayList<Product> lowProduct =  workerUser.checkLowQuantity(onlineShop);
                                             if (lowProduct.isEmpty()){
                                                 System.out.println("No low qualtity product");
@@ -209,6 +218,7 @@ public class Main {
                                                 int index = 0;
                                                 for (Product low:lowProduct){
                                                     System.out.println("index = " + index + "\n" + low.toString());
+                                                    index++;
                                                 }
                                                 System.out.println("select the index of the product to restock");
                                                 int selectedIndex = scanner.nextInt();
@@ -217,7 +227,14 @@ public class Main {
                                                     int selectedQuantityToRestock = scanner.nextInt();
                                                     if (selectedQuantityToRestock > 0){
                                                         for (int i = 0; i < onlineShop.getSize(); i++){
-
+                                                            for (int j = 0; j < lowProduct.size(); j++){
+                                                                if (onlineShop.getOnlineShop().get(i).getId().equals(lowProduct.get(j).getId())){
+                                                                    if (j == selectedIndex){
+                                                                        workerUser.restockLowProducts(onlineShop, i, selectedQuantityToRestock);
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
