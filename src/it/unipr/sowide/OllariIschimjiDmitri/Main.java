@@ -5,7 +5,9 @@ import it.unipr.sowide.OllariIschimjiDmitri.Users.Admin;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.NormalUser;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.WorkerUser;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -280,53 +282,90 @@ public class Main {
                                             }
                                             break;
                                         case 2:
-                                            System.out.println("If you want search by name(leave blanc if you want use this features), insert here the name of the product:");
-                                            String searchByName = scanner.next();
-                                            System.out.println("if you want search by product supplier name(leave blanc if wont use this features), insert here the supplier name of the product:");
-                                            String searchBySupplier = scanner.next();
-                                            System.out.println("decrescent order or crescent order for prodct price(leave blanc if wont use), 1 for decrescent or 0 for crescent");
-                                            int crescDecres = scanner.nextInt();
+                                            //search section to serach by name, supplier and crescent descendento order
+
+                                            System.out.println("Select:\n1 - search by name\n2 - search by supplier\n3 - search by name and supplier");
+                                            int choiceSearch = scanner.nextInt();
 
                                             ArrayList<Product> search = new ArrayList<>();
-
-                                            if (!searchByName.isEmpty()){
-                                                for (Product product:onlineShop.getOnlineShop()){
-                                                    if (product.getName().equals(searchByName)){
-                                                        search.add(product);
+                                            //TODO: add regular expressions for better search experience kekw :(
+                                            switch (choiceSearch){
+                                                case 1:
+                                                    System.out.println("input the name to search:");
+                                                    String nameToSearch = scanner.next();
+                                                    if (!nameToSearch.isEmpty()){
+                                                        search =  normalUser.searchByProductName(onlineShop.getOnlineShop(), nameToSearch);
                                                     }
-                                                }
+                                                    else
+                                                    {
+                                                        System.out.println("Product not found by name");
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    System.out.println("input the supplier to search:");
+                                                    String supplierToSearch = scanner.next();
+                                                    if (!supplierToSearch.isEmpty()){
+                                                        search =  normalUser.searchBySupplier(onlineShop.getOnlineShop(), supplierToSearch);
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.println("Product not found by supplier");
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    System.out.println("input the name to search:");
+                                                    String nameToSearchCombo = scanner.next();
+                                                    if (!nameToSearchCombo.isEmpty()){
+                                                        ArrayList<Product> app = new ArrayList<>();
+                                                        app =  normalUser.searchByProductName(onlineShop.getOnlineShop(), nameToSearchCombo);
+                                                        System.out.println("input the supplier to search:");
+                                                        String supplierToSearchCombo = scanner.next();
+                                                        if (!supplierToSearchCombo.isEmpty()){
+                                                            search =  normalUser.searchBySupplier(app, supplierToSearchCombo);
+                                                        }
+                                                        else
+                                                        {
+                                                            System.out.println("Product not found by supplier");
+                                                            break;
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.println("Product not found by name");
+                                                        break;
+                                                    }
+                                                default:
+
+                                                    break;
+
                                             }
 
-                                            if (!searchBySupplier.isEmpty()){
-                                                if (search.isEmpty()){
-                                                    for (Product product:onlineShop.getOnlineShop()){
-                                                        if (product.getSupplier().equals(searchBySupplier)){
-                                                            search.add(product);
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    search.clear();
-                                                    for (Product product:onlineShop.getOnlineShop()){
-                                                        if (product.getName().equals(searchByName) && product.getSupplier().equals(searchBySupplier)){
-                                                            search.add(product);
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                            System.out.println("Select 0 for leave the query order unaltereted, select 1 to order by increasing price, select 2 to order by decreasing price:");
+                                            int sortSelect = scanner.nextInt();
 
-                                            if (crescDecres == 1)
+                                            if (sortSelect == 0)
                                             {
-                                                search.sort((o1, o2) -> {return (int) (o1.getPrice() - o2.getPrice());});
+                                                for (Product product:search){
+                                                    System.out.println(product.toString());
+                                                }
+                                            }
+                                            else if (sortSelect == 1){
+                                                ArrayList<Product> cres = normalUser.crescentOrder(search);
+                                                for (Product product:cres){
+                                                    System.out.println(product.toString());
+                                                }
+                                            }
+                                            else if (sortSelect == 2)
+                                            {
+                                                ArrayList<Product> dec = normalUser.decrescentOrder(search);
+                                                for (Product product:dec){
+                                                    System.out.println(product.toString());                                                }
                                             }
 
-                                            if (crescDecres == 0){
-
-
-                                            }
 
                                             break;
+
                                         case 3:
                                             //add product to cart
                                             //SAMPO IL CONTENUTO DELLO SHOP
@@ -422,154 +461,5 @@ public class Main {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        /*
-
-        //SAMPO IL CONTENUTO DELLO SHOP
-        for (int i = 0; i < onlineShop.getSize(); i++){
-            System.out.println(onlineShop.getOnlineShop().get(i).toString());
-        }
-
-
-        //AUMENTO LA QUANTITÀ DI UN PRODOTTO(AZIONE ADIBITA A UTENTI WORKER)
-        //onlineShop.increaseQuantityOfProduct(a.getId(), 1000);
-
-        //RIDUCO QUANTITÀ(AZIONE ADIBITA A UTENTE WORKER)
-        //onlineShop.decreaseQuantityOfProduct(b.getId(), 9);
-
-        System.out.println("STAMPO LA LISTA DI OGGETTI IN NEGOZIO");
-        for (int i = 0; i < onlineShop.getSize(); i++){
-            System.out.println(onlineShop.getOnlineShop().get(i).toString());
-        }
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println("Products low in quantity:");
-        for (int i = 0; i < onlineShop.getQuantityOfProducts().size(); i++){
-            System.out.println(onlineShop.getQuantityOfProducts().get(i));
-        }
-
-
-        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(0) , 2);
-
-        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(2), 10);
-        user1.getShoppingCart().addProductToShoppingCart(onlineShop.getOnlineShop().get(5), 20);
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println("ShoppingList");
-        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
-            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
-        }
-
-        System.out.println();
-        System.out.println();
-        System.out.println("Remove one product from shoppinglist");
-
-        user1.getShoppingCart().removeProductInShoppingCart(a);
-        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
-            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
-        }
-
-        System.out.println();
-        System.out.println();
-        System.out.println("increment quantity of one product");
-        user1.getShoppingCart().increaseQuantityOfProduct(c.getId(), 15);
-
-        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
-            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
-        }
-
-        System.out.println();
-        System.out.println();
-        System.out.println("decrement quantity of one product");
-        user1.getShoppingCart().decreaseQuantityOfProduct(c.getId(), 21);
-
-        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
-            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
-        }
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println("Purchased");
-        try
-        {
-            user1.purchase(onlineShop, orders);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception);
-        }
-
-
-        for (int i = 0; i < orders.getOrderList().size(); i++){
-            System.out.println(orders.getOrderList().get(i).getUserName());
-            System.out.println(orders.getOrderList().get(i).getProductId());
-            System.out.println(orders.getOrderList().get(i).getProductQuantity());
-            System.out.println();
-            System.out.println();
-        }
-
-
-        System.out.println("cart post purchase");
-        for (int i = 0; i < user1.getShoppingCart().getShoppingCart().size(); i++){
-            System.out.println(user1.getShoppingCart().getShoppingCart().get(i).toString());
-        }
-
-
-
-
-
-        System.out.println("LOW QUANTITY");
-        if (!work1.checkLowQuantity(onlineShop).isEmpty()){
-            int i = 0;
-            for (Product product: work1.checkLowQuantity(onlineShop)){
-                System.out.println("Product number: " +  (i));
-                System.out.print("Id: " + product.getId() + " - name: ");
-                System.out.print(product.getName() + " - supplier: ");
-                System.out.print(product.getSupplier() + " - price: ");
-                System.out.print(product.getPrice() + " - quantity: ");
-                System.out.println(product.getQuantity());
-                i++;
-            }
-        }
-        //ASK THE WORKER A INDEX TO MODIFY
-        work1.restockLowProducts(onlineShop, 1, 2000);
-
-
-
-
-
-        System.out.println("Quantitativo di ordini da spedire: " + orders.getOrderList().stream().count());
-
-        OrderToShip app = work1.nextOrder(orders);
-        System.out.println(app.getUserName());
-        System.out.println(app.getProductId());
-        System.out.println(app.getProductQuantity());
-
-        OrderToShip app1 = work1.nextOrder(orders);
-        System.out.println(app1.getUserName());
-        System.out.println(app1.getProductId());
-        System.out.println(app1.getProductQuantity());
-
-        OrderToShip app2 = work1.nextOrder(orders);
-        System.out.println(app2.getUserName());
-        System.out.println(app2.getProductId());
-        System.out.println(app2.getProductQuantity());
-
-         */
     }
 }

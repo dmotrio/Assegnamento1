@@ -2,6 +2,12 @@ package it.unipr.sowide.OllariIschimjiDmitri.Users;
 
 import it.unipr.sowide.OllariIschimjiDmitri.Store.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class NormalUser {
     private String name;
     private String password;
@@ -66,5 +72,42 @@ public class NormalUser {
                 }
             }
             this.getShoppingCart().getShoppingCart().clear();
+    }
+
+    public ArrayList<Product> searchByProductName(ArrayList<Product> products, String productName){
+        ArrayList<Product> toReturn = new ArrayList<>();
+        Pattern p = Pattern.compile("\\b(?:" + productName + ")\\b", Pattern.CASE_INSENSITIVE);
+        for (Product pr:products){
+            Matcher m = p.matcher(pr.getName());
+            if (m.matches())
+            {
+                toReturn.add(pr);
+            }
+        }
+        return toReturn;
+    }
+
+    public ArrayList<Product> searchBySupplier(ArrayList<Product> products, String productSupplier){
+        ArrayList<Product> toReturn = new ArrayList<>();
+        Pattern p = Pattern.compile(productSupplier, Pattern.CASE_INSENSITIVE);
+        for (Product pr:products){
+            Matcher m = p.matcher(pr.getSupplier());
+            if (m.matches())
+            {
+                toReturn.add(pr);
+            }
+        }
+        return toReturn;
+    }
+
+    public ArrayList<Product> crescentOrder(ArrayList<Product> products){
+        products.sort(Comparator.comparingDouble(Product::getQuantity));
+        return products;
+    }
+
+    public ArrayList<Product> decrescentOrder(ArrayList<Product> products){
+        ArrayList<Product> reverse = crescentOrder(products);
+        Collections.reverse(reverse);
+        return reverse;
     }
 }
