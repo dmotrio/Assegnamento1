@@ -5,40 +5,37 @@ import it.unipr.sowide.OllariIschimjiDmitri.Users.Admin;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.NormalUser;
 import it.unipr.sowide.OllariIschimjiDmitri.Users.WorkerUser;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Ollari Ischimji Dmitri
+ * class used for interface the system to the final users like normal users and worker users.
+ */
 public class Main {
 
     public static void main(String[] args) {
-	/*
-	* creo i due oggetti alla base di tutto che sono lo shop e la lista degli ordini.
-	* Dopo di che con la programmazione sequenziale, dovrò creare gli utenti mediante un utente login hardcoded
-	*
-	*/
         OnlineShop onlineShop = new OnlineShop();
         Orders orders = new Orders();
         ArrayList<NormalUser> users = new ArrayList<>();
         ArrayList<WorkerUser> workers = new ArrayList<>();
 
         //setup for tests
-        NormalUser dmo = new NormalUser("dmo","dmo");
+        NormalUser dmo = new NormalUser("testUser","password");
         users.add(dmo);
 
         WorkerUser w = new WorkerUser();
-        w.setName("w");
-        w.setPassword("w");
+        w.setName("workerUser");
+        w.setPassword("password");
         workers.add(w);
 
-        Admin admin = new Admin(onlineShop);
+        Admin admin = new Admin(onlineShop);// ADMIN CREDENTIALS ARE: Admin Admin
         Scanner scanner = new Scanner(System.in);
 
         boolean loop = true;
 
-        while (loop){
+        while (loop){//MAIN LOOP OF THE PROGRAM
             System.out.println("Select one option: \n1 - login\n2 - register\n0 - Quit program");
             int choice = scanner.nextInt();
 
@@ -276,7 +273,7 @@ public class Main {
                                     int choiseNormalUser = scanner.nextInt();
                                     switch (choiseNormalUser){
                                         case 1:
-                                            //SAMPO IL CONTENUTO DELLO SHOP
+                                            //PRINT ALL THE PRODUCTS IN THE SHOP
                                             for (int i = 0; i < onlineShop.getSize(); i++){
                                                 System.out.println(onlineShop.getOnlineShop().get(i).toString());
                                             }
@@ -368,7 +365,7 @@ public class Main {
 
                                         case 3:
                                             //add product to cart
-                                            //SAMPO IL CONTENUTO DELLO SHOP
+
                                             for (int i = 0; i < onlineShop.getSize(); i++){
                                                 System.out.println("Index = " + i + " " + onlineShop.getOnlineShop().get(i).toString());
                                             }
@@ -411,6 +408,7 @@ public class Main {
                                             loopNormalUser = false;
                                             break;
                                         default:
+                                            System.out.println("Wrong selection");
                                             break;
 
                                     }

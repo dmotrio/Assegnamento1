@@ -5,6 +5,12 @@ import it.unipr.sowide.OllariIschimjiDmitri.Store.Product;
 
 import java.util.ArrayList;
 
+/**
+ * @author Ollari Ischimji Dmitri
+ * This class is used to create the admin user and to crete the first 10 sample product to populate the shop.
+ * this class can create worker users, delete worker users, add product to he shop and remove product from the shop.
+ *
+ */
 public class Admin {
     private String name;
     private String password;
@@ -17,6 +23,12 @@ public class Admin {
         return password;
     }
 
+    /**
+     * function used to create worker account
+     * @param name rappresent the name for the user
+     * @param password rappresent the password for the user
+     * @param workers is an arraylist where all the workers account were stored.
+     */
     public void createNewWorker(String name, String password, ArrayList<WorkerUser> workers){
         WorkerUser work = new WorkerUser();
         work.setName(name);
@@ -24,6 +36,12 @@ public class Admin {
         workers.add(work);
     }
 
+    /**
+     * function used to delete worker account
+     * @param work is the object that rapresent the account
+     * @param workers is the arraylist that contains all the workers
+     * @throws Exception throw an exception if the class passed to delete is not in the workers arraylist
+     */
     public void removeWorker(WorkerUser work, ArrayList<WorkerUser> workers) throws Exception {
         if (workers.contains(work)){
             workers.remove(work);
@@ -34,6 +52,10 @@ public class Admin {
         }
     }
 
+    /**
+     * default sample of all the product to instance at the startup
+     * @param onlineShop object that rapresent the store that contains all the products.
+     */
     public Admin(OnlineShop onlineShop) {
         this.name = "Admin";
         this.password = "Admin";
@@ -63,10 +85,20 @@ public class Admin {
         onlineShop.addProductToShop(l);
     }
 
+    /**
+     * function used to add new products to the catalog of the shop
+     * @param onlineShop is the shop (in case this sistem is used to mantein multiple shops) were add the products
+     * @param product is the new product to add in the shop.
+     */
     public void newProductInShop(OnlineShop onlineShop, Product product){
         onlineShop.getOnlineShop().add(product);
     }
 
+    /**
+     * function used to remove products from the catalog of the shop
+     * @param onlineShop is the shop (in case this sistem is used to mantein multiple shops) were remove the products
+     * @param productId is the product to remove from the shop.
+     */
     public void removeProduct(OnlineShop onlineShop, String productId){
         for(Product product: onlineShop.getOnlineShop()){
             if (product.getId().equals(productId)){
