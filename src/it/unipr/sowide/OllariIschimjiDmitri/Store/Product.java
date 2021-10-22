@@ -1,5 +1,6 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -7,7 +8,7 @@ import java.util.UUID;
  * This class is used to emulate the fisical products in a store and is used to populate
  * the store itself.
  */
-public class Product implements Comparable<Product> {
+public class Product implements Comparator<Product> {
     private String uniqueID;
     private String name;
     private String supplier;
@@ -132,15 +133,41 @@ public class Product implements Comparable<Product> {
     }
 
     /**
-     * Method used to compare two objects using the price
-     * needed to perform sorting function.
-     * @param o new object created by the class Product used for confronting the prices.
-     * @return 1 if the first object is greater,
-     *         0 if the two objects are the same
-     *         -1 if the second object is grater than the first.
+     * Compares its two arguments for order.  Returns a negative integer,
+     * zero, or a positive integer as the first argument is less than, equal
+     * to, or greater than the second.<p>
+     * <p>
+     * The implementor must ensure that {@link Integer#signum
+     * signum}{@code (compare(x, y)) == -signum(compare(y, x))} for
+     * all {@code x} and {@code y}.  (This implies that {@code
+     * compare(x, y)} must throw an exception if and only if {@code
+     * compare(y, x)} throws an exception.)<p>
+     * <p>
+     * The implementor must also ensure that the relation is transitive:
+     * {@code ((compare(x, y)>0) && (compare(y, z)>0))} implies
+     * {@code compare(x, z)>0}.<p>
+     * <p>
+     * Finally, the implementor must ensure that {@code compare(x,
+     * y)==0} implies that {@code signum(compare(x,
+     * z))==signum(compare(y, z))} for all {@code z}.
+     *
+     * @param o1 the first object to be compared.
+     * @param o2 the second object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     * first argument is less than, equal to, or greater than the
+     * second.
+     * @throws NullPointerException if an argument is null and this
+     *                              comparator does not permit null arguments
+     * @throws ClassCastException   if the arguments' types prevent them from
+     *                              being compared by this comparator.
+     * @apiNote It is generally the case, but <i>not</i> strictly required that
+     * {@code (compare(x, y)==0) == (x.equals(y))}.  Generally speaking,
+     * any comparator that violates this condition should clearly indicate
+     * this fact.  The recommended language is "Note: this comparator
+     * imposes orderings that are inconsistent with equals."
      */
     @Override
-    public int compareTo(Product o) {
-        return (int) (this.getPrice() - o.getPrice());
+    public int compare(Product o1, Product o2) {
+        return (int) (o1.getPrice() - o2.getPrice());
     }
 }

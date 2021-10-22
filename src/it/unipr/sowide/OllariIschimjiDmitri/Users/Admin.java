@@ -39,15 +39,15 @@ public class Admin {
         this.password = "Admin";
 
         //CREO DIECI PRODOTTI
-        Product a = new Product("LavatriceX", "Brandfamoso", 999.99f, 1000);
-        Product b = new Product("Iphone9", "apple", 999.99f, 10000);
-        Product c = new Product("PC", "lenovo", 1234.56f, 5000);
-        Product d = new Product("LavatriceY", "arcTAN", 999.99f, 99);
-        Product e = new Product("OnePlus9", "OnePlus", 999.99f, 250);
-        Product f = new Product("PC-gaming", "lenovo", 1234.56f, 5000);
+        Product a = new Product("LavatriceX", "Brandfamoso", 1.99f, 1000);
+        Product b = new Product("Iphone9", "apple", 5.99f, 10000);
+        Product c = new Product("PC", "msi", 1234.56f, 5000);
+        Product d = new Product("LavatriceY", "arcTAN", 9.99f, 99);
+        Product e = new Product("OnePlus9", "OnePlus", 99.99f, 250);
+        Product f = new Product("PC-gaming", "lenovo", 14.56f, 5000);
         Product g = new Product("LavatriceKSG", "KSG", 345.99f, 100000);
-        Product h = new Product("Iphone99", "apple", 999.99f, 10000);
-        Product k = new Product("Laptop", "MSI", 900.56f, 199);
+        Product h = new Product("Iphone99", "apple", 50.99f, 10000);
+        Product k = new Product("Laptop", "MSI", 10000.56f, 199);
         Product l = new Product("LavatriceQWERTY", "BrandMenoFamoso", 100.99f, 100);
 
         //INSERISCO I DIECI PRODOTTI NELLO SHOP
@@ -69,7 +69,7 @@ public class Admin {
 
     public void removeProduct(OnlineShop onlineShop, String productId){
         for(Product product: onlineShop.getOnlineShop()){
-            if (product.getId() == productId){
+            if (product.getId().equals(productId)){
                 onlineShop.getOnlineShop().remove(product);
                 break;
             }

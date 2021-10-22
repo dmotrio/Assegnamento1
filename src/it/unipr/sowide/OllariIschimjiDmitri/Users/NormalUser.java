@@ -76,10 +76,10 @@ public class NormalUser {
 
     public ArrayList<Product> searchByProductName(ArrayList<Product> products, String productName){
         ArrayList<Product> toReturn = new ArrayList<>();
-        Pattern p = Pattern.compile("\\b(?:" + productName + ")\\b", Pattern.CASE_INSENSITIVE);
+
         for (Product pr:products){
-            Matcher m = p.matcher(pr.getName());
-            if (m.matches())
+
+            if (pr.getName().toLowerCase().contains(productName.toLowerCase()))
             {
                 toReturn.add(pr);
             }
@@ -89,10 +89,10 @@ public class NormalUser {
 
     public ArrayList<Product> searchBySupplier(ArrayList<Product> products, String productSupplier){
         ArrayList<Product> toReturn = new ArrayList<>();
-        Pattern p = Pattern.compile(productSupplier, Pattern.CASE_INSENSITIVE);
+
         for (Product pr:products){
-            Matcher m = p.matcher(pr.getSupplier());
-            if (m.matches())
+
+            if (pr.getSupplier().toLowerCase().contains(productSupplier.toLowerCase()))
             {
                 toReturn.add(pr);
             }
@@ -101,7 +101,8 @@ public class NormalUser {
     }
 
     public ArrayList<Product> crescentOrder(ArrayList<Product> products){
-        products.sort(Comparator.comparingDouble(Product::getQuantity));
+        Collections.sort(products, new Product());
+
         return products;
     }
 
