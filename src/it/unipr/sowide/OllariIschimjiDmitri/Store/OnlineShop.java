@@ -1,7 +1,7 @@
 package it.unipr.sowide.OllariIschimjiDmitri.Store;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
 
 /**
  * @author Ollari Ischimji Dmitri
@@ -38,7 +38,7 @@ public class OnlineShop {
 
 
         for (Product product : onlineShop) {
-            if (Objects.equals(product.getId(), id)) {
+            if (product.getId().equals(id)) {
                 int oldQuantity = product.getQuantity();
                 product.setQuantity(oldQuantity - quantity);
                 return true;
