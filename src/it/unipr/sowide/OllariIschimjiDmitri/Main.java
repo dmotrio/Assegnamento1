@@ -161,15 +161,16 @@ public class Main {
                         }
                         break;
                     case 2://WORKER LOGIN
-                        System.out.println("insert name:");
-                        String nameWorker = scanner.next();
-                        System.out.println("insert password:");
-                        String passwordWorker = scanner.next();
                         if (workers.isEmpty())
                         {
                             System.out.println("Worker list is empty, first register some workers");
                             break;
                         }
+                        System.out.println("insert name:");
+                        String nameWorker = scanner.next();
+                        System.out.println("insert password:");
+                        String passwordWorker = scanner.next();
+
                         for (WorkerUser workerUser:workers){
                             if (workerUser.getName().equals(nameWorker) && workerUser.getPassword().equals(passwordWorker)){
                                 System.out.println("LoggedIn as: " + workerUser.getName());
@@ -250,6 +251,7 @@ public class Main {
                                     }
                                 }
                             }
+                            System.out.println("wrong credentials");
                         }
                         break;
                     case 3://NORMAL USER LOGIN
@@ -285,9 +287,9 @@ public class Main {
                                             int choiceSearch = scanner.nextInt();
 
                                             ArrayList<Product> search = new ArrayList<>();
-                                            //TODO: add regular expressions for better search experience kekw :(
+                                            //SEARCH PRODUCTS IN THE SHOP
                                             switch (choiceSearch){
-                                                case 1:
+                                                case 1://SEARCH BY NAME
                                                     System.out.println("input the name to search:");
                                                     String nameToSearch = scanner.next();
                                                     if (!nameToSearch.isEmpty()){
@@ -298,7 +300,7 @@ public class Main {
                                                         System.out.println("Product not found by name");
                                                     }
                                                     break;
-                                                case 2:
+                                                case 2://SEARCH BY SUPPLIER
                                                     System.out.println("input the supplier to search:");
                                                     String supplierToSearch = scanner.next();
                                                     if (!supplierToSearch.isEmpty()){
@@ -309,7 +311,7 @@ public class Main {
                                                         System.out.println("Product not found by supplier");
                                                     }
                                                     break;
-                                                case 3:
+                                                case 3://SEARCH BY NAME AND SUPPLIER
                                                     System.out.println("input the name to search:");
                                                     String nameToSearchCombo = scanner.next();
                                                     if (!nameToSearchCombo.isEmpty()){
@@ -338,6 +340,7 @@ public class Main {
 
                                             }
 
+                                            //ORDER METHODS TO ORDER THE RESEARCH RESULTS
                                             System.out.println("Select 0 for leave the query order unaltereted, select 1 to order by increasing price, select 2 to order by decreasing price:");
                                             int sortSelect = scanner.nextInt();
 
@@ -429,7 +432,7 @@ public class Main {
                         break;
                 }
                         break;
-                case 2:
+                case 2://REGISTER NEW NORMAL USER
                     System.out.println("register");
                     System.out.println("Insert name:");
                     String name = scanner.next();
@@ -452,7 +455,7 @@ public class Main {
                     users.add(user);
                 }
                     break;
-                case 0: System.out.println("QUIT");
+                case 0: System.out.println("QUIT");//END OF THE PROGRAM
                     loop = false;
                     break;
                 default: System.out.println("Use a correct choise");
